@@ -22,10 +22,7 @@ func main() {
 
 	router := gin.Default()
 
-	router.POST("/users/create", controllers.CreateUser)
-	router.GET("/users/getBy/:id", controllers.GetUserByID)
-	router.PUT("/users/update/:id", controllers.UpdateUser)
-	router.DELETE("/users/delete/:id", controllers.DeleteUser)
+	controllers.SetUserRoutes(router)
 
 	port := os.Getenv("PORT")
 	if port == "" {

@@ -63,3 +63,11 @@ func DeleteUser(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "User deleted successfully"})
 }
+
+// init controller
+func SetUserRoutes(router *gin.Engine) {
+	router.POST("/users/create", CreateUser)
+	router.GET("/users/getBy/:id", GetUserByID)
+	router.PUT("/users/update/:id", UpdateUser)
+	router.DELETE("/users/delete/:id", DeleteUser)
+}
