@@ -54,3 +54,24 @@ func DeleteUser(id int) error {
 	}
 	return nil
 }
+
+func GetAllUsers() ([]models.User, error) {
+	var users []models.User
+	sql := `SELECT id, name, email FROM users`
+	db := config.ConfigDatabase()
+	rows, err := db.Query(sql)
+	if err != nil {
+		log.Print("Error fetching users: %v", err)
+		return users, err
+	}
+	for rows.Next() {
+		var user models.User
+		err := rows.Scan(&user.ID, &user.Name, &user.Email)
+		if err != nil {
+			log.Print("Error scanning users: %v", err)
+			return users, err
+		}
+		users = append(users, user)
+	}
+	return users, nil
+}

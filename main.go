@@ -4,7 +4,6 @@ import (
 	"go-crud/config"
 	"go-crud/controllers"
 	"log"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -24,10 +23,7 @@ func main() {
 
 	controllers.SetUserRoutes(router)
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
+	port := config.Routes()
 
 	router.Run(":" + port)
 }

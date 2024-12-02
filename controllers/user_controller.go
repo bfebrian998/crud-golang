@@ -25,6 +25,15 @@ func CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, "success")
 }
 
+func getAllUsers(c *gin.Context) {
+	response, err := services.GetAllUsers()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error getting users"})
+		return
+	}
+	c.JSON(http.StatusOK, response)
+}
+
 func GetUserByID(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	response, err := services.GetUserByID(id)
@@ -68,6 +77,7 @@ func DeleteUser(c *gin.Context) {
 func SetUserRoutes(router *gin.Engine) {
 	router.POST("/users/create", CreateUser)
 	router.GET("/users/getBy/:id", GetUserByID)
+	router.GET("/users/getAll", getAllUsers)
 	router.PUT("/users/update/:id", UpdateUser)
 	router.DELETE("/users/delete/:id", DeleteUser)
 }
